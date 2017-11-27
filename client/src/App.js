@@ -39,15 +39,17 @@ class App extends Component {
       schoolName: event.target.value,
       debt: event.target.value,
       tuition: event.target.value
-    });
-  };
 
-  getInitialState() {
-      return {typed: ''};
-    };
-  onBlur(event) {
+    });
     this.setState({typed: event.target.value});
   };
+
+  // getInitialState() {
+  //     return {typed: ''};
+  //   };
+  // onBlur(event) {
+  //   this.setState({typed: event.target.value});
+  // };
 
   render() {
     // let message;
