@@ -61,7 +61,7 @@ class App extends Component {
         </form>
         <div>
         <p>School: { this.state.schoolName } </p>
-        <p>Location: { this.state.city } , {this.state.state} </p>
+        <p>Location: { this.state.city }  {this.state.state} </p>
         <p>Accreditor: { this.state.accreditor } </p>
         <p>School Homepage: { this.state.url } </p>
         <p>Average Tuition: ${ this.state.tuition.toLocaleString() } </p>
