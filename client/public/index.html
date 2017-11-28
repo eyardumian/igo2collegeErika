@@ -22,6 +22,54 @@
     <title>React App</title>
   </head>
   <body>
+
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '{382051735565388}',
+      cookie     : true,
+      xfbml      : true,
+      version    : '{v2.11}'
+    });
+
+    FB.AppEvents.logPageView();
+
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+
+ FB.getLoginStatus(function(response) {
+     statusChangeCallback(response);
+ });
+ {
+    status: 'connected',
+    authResponse: {
+        accessToken: '...',
+        expiresIn:'...',
+        signedRequest:'...',
+        userID:'...'
+    }
+}
+
+<fb:login-button
+  scope="public_profile,email"
+  onlogin="checkLoginState();">
+</fb:login-button>
+
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+}
+
+</script>
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>

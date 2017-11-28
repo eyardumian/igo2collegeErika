@@ -6,8 +6,11 @@ class App extends Component {
     super(props);
     this.state = {
       schoolName: '',
-      debt: '',
+      city: '',
+      state: '',
+      url: '',
       tuition: '',
+      debt: ''
     }
   }
 
@@ -16,7 +19,7 @@ class App extends Component {
 
 
     const apiKey = 'XdOHSc8fKhMKidPu2HWqCZmMy9OxtCJamGC580Bi';
-    const fields = `_fields=school.name,2015.aid.median_debt.completers.overall,2015.cost.tuition.in_state&school.name=${this.state.schoolName}`;
+    const fields = `_fields=school.name,school.city,school.state,school.accreditor,school.school_url,2015.cost.tuition.in_state,2015.aid.median_debt.completers.overall,2015.cost.tuition.in_state&school.name=${this.state.schoolName}`;
     const requestUrl = `https://api.data.gov/ed/collegescorecard/v1/schools?&api_key=${apiKey}&${fields}`;
 
      fetch(requestUrl)
@@ -26,8 +29,12 @@ class App extends Component {
       console.log(data.results[0])
       this.setState({
         schoolName: data.results[0]['school.name'],
-        debt: data.results[0]['2015.aid.median_debt.completers.overall'],
-        tuition: data.results[0]['2015.cost.tuition.in_state']
+        city: data.results[0]['school.city'],
+        state: data.results[0]['school.state'],
+        accreditor: data.results[0]['school.accreditor'],
+        url: data.results[0]['school.school_url'],
+        tuition: data.results[0]['2015.cost.tuition.in_state'],
+        debt: data.results[0]['2015.aid.median_debt.completers.overall']
     })
     console.log(this.state.schoolName);
   });
@@ -36,7 +43,7 @@ class App extends Component {
   setSchool(event) {
     event.preventDefault();
     this.setState({
-      schoolName: event.target.value
+      schoolName: event.target.value,
       // debt: event.target.value,
       // tuition: event.target.value
     });
@@ -54,8 +61,12 @@ class App extends Component {
         </form>
         <div>
         <p>School: { this.state.schoolName } </p>
-        <p>Median Debt: ${ this.state.debt.toLocaleString() } </p>
-        <p>Tuition: ${ this.state.tuition.toLocaleString() } </p>
+        <p>Location: { this.state.city } , {this.state.state} </p>
+        <p>Accreditor: { this.state.accreditor } </p>
+        <p>School Homepage: { this.state.url } </p>
+        <p>Average Tuition: ${ this.state.tuition.toLocaleString() } </p>
+        <p>Average Debt: ${ this.state.debt.toLocaleString() } </p>
+
         </div>
       </div>
     );
