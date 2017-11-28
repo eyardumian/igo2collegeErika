@@ -8,12 +8,12 @@ class App extends Component {
       schoolName: '',
       debt: '',
       tuition: '',
-      // schoolData: {}
     }
   }
 
   fetchSchool(event) {
     event.preventDefault();
+
 
     const apiKey = 'XdOHSc8fKhMKidPu2HWqCZmMy9OxtCJamGC580Bi';
     const fields = `_fields=school.name,2015.aid.median_debt.completers.overall,2015.cost.tuition.in_state&school.name=${this.state.schoolName}`;
@@ -36,41 +36,26 @@ class App extends Component {
   setSchool(event) {
     event.preventDefault();
     this.setState({
-      schoolName: event.target.value,
-      debt: event.target.value,
-      tuition: event.target.value
-
+      schoolName: event.target.value
+      // debt: event.target.value,
+      // tuition: event.target.value
     });
-    this.setState({typed: event.target.value});
+    document.getElementById("my-form").reset();
   };
 
-  // getInitialState() {
-  //     return {typed: ''};
-  //   };
-  // onBlur(event) {
-  //   this.setState({typed: event.target.value});
-  // };
+
 
   render() {
-    // let message;
-    // if(onclick === true) {
-    //   message = this.state.schoolName;
-    // } else {
-    //   message = '';
-    // }
-    // const schoolname = this.state.schoolName[0];
-    // const {schooName} = this.state;
     return (
-
       <div>
-        <form action="/school" method="GET" id="create-course-form">
-          <input type="text" className="form-control" id="enter_text" onBlur={this.setSchool.bind(this)} />
-            <button  onClick={this.fetchSchool.bind(this)} type="submit" className="btn btn-primary" id="text-enter-button button submit">Submit</button>
+        <form action="/school" method="GET" id="my-form">
+          <input  type="text" className="form-control" id="enter_text"      onBlur={ this.setSchool.bind(this) }/>
+            <button onClick={ this.fetchSchool.bind(this) } type="submit" className="btn btn-primary" id="text-enter-button button submit">Submit</button>
         </form>
         <div>
         <p>School: { this.state.schoolName } </p>
-        <p>Median Debt: { this.state.debt } </p>
-        <p>Tuition: { this.state.tuition } </p>
+        <p>Median Debt: ${ this.state.debt.toLocaleString() } </p>
+        <p>Tuition: ${ this.state.tuition.toLocaleString() } </p>
         </div>
       </div>
     );
